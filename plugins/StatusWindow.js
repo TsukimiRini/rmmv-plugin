@@ -1,18 +1,35 @@
 /*:
- * @plugindesc 显示主角状态窗口，包括头像、名字、HP。
+ * @plugindesc 调整系统分辨率，左上角显示主角状态窗口，包括头像、名字、HP。
  * @author ailun
  *
  */
 
 console.log('==================')
+/* 更改分辨率大小以及相关UI问题 */
+SceneManager._screenWidth       = 1296;
+/**画面高 =  624 */
+SceneManager._screenHeight      = 720;
+/**盒宽 = 816 */
+SceneManager._boxWidth          = 1296;
+/**盒高 = 624 */
+SceneManager._boxHeight         = 720;
 
-function Window_Status() {
+Window_Message.prototype.windowWidth = function() {
+    //返回 图形 盒宽
+    return 816;
+};
+
+
+/*=======================================*/
+
+/* 状态显示 */
+function Window_HP() {
   this.initialize.apply(this, arguments)
 }
 
-Window_Status.prototype = Object.create(Window_Base.prototype)
-Window_Status.prototype.constructor = Window_Status
-Window_Status.prototype.initialize = function () {
+Window_HP.prototype = Object.create(Window_Base.prototype)
+Window_HP.prototype.constructor = Window_HP
+Window_HP.prototype.initialize = function () {
     this.gauge_width = 186;
     this.status_width = Window_Base._faceWidth+this.standardPadding()*3+this.gauge_width;
     this.status_height = Window_Base._faceHeight+this.standardPadding()*2;
@@ -23,7 +40,7 @@ Window_Status.prototype.initialize = function () {
   this.refresh()
 }
 
-Window_Status.prototype.update = function () {
+Window_HP.prototype.update = function () {
   Window_Base.prototype.update.call(this)
   if (this._showCount > 0) {
     this.updateFadeIn()
@@ -34,25 +51,25 @@ Window_Status.prototype.update = function () {
 }
 
 // 淡入淡出
-Window_Status.prototype.updateFadeIn = function () {
+Window_HP.prototype.updateFadeIn = function () {
   this.contentsOpacity += 16
 }
-Window_Status.prototype.updateFadeOut = function () {
+Window_HP.prototype.updateFadeOut = function () {
   this.contentsOpacity -= 16
 }
 
 // 显示窗口
-Window_Status.prototype.open = function () {
+Window_HP.prototype.open = function () {
   this.refresh()
   this._showCount = 150
 }
 // 关闭窗口
-Window_Status.prototype.close = function () {
+Window_HP.prototype.close = function () {
   this._showCount = 0
 }
 
 // 载入
-Window_Status.prototype.refresh = function () {
+Window_HP.prototype.refresh = function () {
   this.contents.clear()
   var width = this.contentsWidth()
   //this.drawBackground(0,0,this.width,this.height);
@@ -79,8 +96,8 @@ Scene_Map.prototype.createAllWindows = function () {
 }
 
 Scene_Map.prototype.createStatusWindow = function () {
-  this._statusWindow = new Window_Status()
-  this.addWindow(this._statusWindow)
+  this._HPWindow = new Window_HP()
+  this.addWindow(this._HPWindow)
 }
 
 Scene_Map.prototype.update = function () {
@@ -106,11 +123,11 @@ Scene_Map.prototype.update = function () {
 
 Scene_Map.prototype.showStatusWindow = function () {
   if (true) {
-    this._statusWindow.open()
+    this._HPWindow.open()
   }
 }
 
-Window_Status.prototype.drawBackground = function(x, y, width, height) {
+Window_HP.prototype.drawBackground = function(x, y, width, height) {
     var color1 = this.dimColor1();
     var color2 = this.dimColor2();
     this.contents.gradientFillRect(x, y, width / 2, height, color2, color1);

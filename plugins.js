@@ -3,5 +3,7 @@
 var $plugins =
 [
 {"name":"Community_Basic","status":true,"description":"Basic plugin for manipulating important parameters.","parameters":{"cacheLimit":"20","screenWidth":"816","screenHeight":"624","changeWindowWidthTo":"","changeWindowHeightTo":"","renderingMode":"auto","alwaysDash":"off"}},
-{"name":"StatusWindow","status":true,"description":"显示主角状态窗口，包括头像、名字、HP。","parameters":{}}
+{"name":"StatusWindow","status":true,"description":"显示主角状态窗口，包括头像、名字、HP。","parameters":{}},
+{"name":"DisableFormation","status":true,"description":"屏蔽整队功能。","parameters":{}},
+{"name":"DanmakuRoute","status":true,"description":"定义弹幕路线。","parameters":{}}
 ];
